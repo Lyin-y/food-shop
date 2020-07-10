@@ -1,32 +1,62 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<div id="app">
+		<SideBar></SideBar>
+		<div id="content">
+			<div>	
+				<router-view></router-view>
+			</div>
+		</div>
+	</div>
 </template>
 
+<script>
+//在一个组件使用另一个组件，需要通过import引入MenuList文件
+// import MenuList from './components/MenuList';
+import SideBar from './components/SlideBar'
+//把组件导入进来
+export default {
+  components:{ //导入进来的组件要放到components里面
+    // MenuList,//es6里面如果key与value相同，那就可以省略一个组件
+    SideBar
+  },
+    mounted() {
+    /**
+     * 解决 css 引入图片在 github pages 无法获取的问题
+     */
+    const { NODE_ENV } = process.env;
+    document.documentElement.className = NODE_ENV;
+   }
+}
+
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+@import "./assets/global.less";
+body,p{
+	margin: 0;
+}
+body{
+	background: url(./assets/images/bg.jpg) center top no-repeat;
+}
+ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+a{
+	text-decoration: none;
 }
 
-#nav {
-  padding: 30px;
+#app{
+	display: flex;
+	width: 100%;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.logo{
+	height: 120px;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+#content{
+	width: 100%;
+	position: relative;
 }
 </style>
+
